@@ -2,7 +2,7 @@
 import Link from "next/link"; // Import the Link component from Next.js
 import Image from "next/image"; // Import the Image component from Next.js
 import { ArrowRightIcon } from "@heroicons/react/24/outline"; // Import the ArrowRightIcon component
-import styles from "./page.module.css";
+import styles from "./global.css";
 import { lusitana } from "@/app/ui/fonts";
 import ExpenShareLogo from "@/app/ui/expenshare-logo";
 
