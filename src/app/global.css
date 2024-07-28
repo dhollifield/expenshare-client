@@ -16,3 +16,13 @@ input[type='number']::-webkit-outer-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
+
+.users-title {
+  color: red;
+  font-size:larger;
+  font-weight:bold
+}
+
+.users-info li {
+  border: black 2px;
+}
