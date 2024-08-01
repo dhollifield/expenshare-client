@@ -23,11 +23,11 @@ useEffect(() => {
 return <>
     <p class="users-title">Users List</p>
     <div>
-    <ul class="users-list">
+    <ul className="flex justify-center">
         {users.map((user) => (
-            <li class="user-info" key={user.id} id={user.id}>
-                <h3>{user.name}</h3>
-                <h3>{user.email}</h3>
+            <li className="text-3xl font-bold underline" key={user.id} id={user.id}>
+                <p>{user.name}</p>
+                <p>{user.email}</p>
             </li>
         ))}
     </ul>
