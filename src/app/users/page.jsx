@@ -21,16 +21,16 @@ useEffect(() => {
 }, []);
 
 return <>
-    <p class="users-title">Users List</p>
+    <p className="text-blue-600">Users List</p>
     <div>
-    <ul className="flex justify-center">
-        {users.map((user) => (
-            <li className="text-3xl font-bold underline" key={user.id} id={user.id}>
-                <p>{user.name}</p>
-                <p>{user.email}</p>
-            </li>
-        ))}
-    </ul>
+        <div className="flex center">
+            {users.map((user) => (
+                <div className="shadow rounded-lg p-3" key={user.id} id={user.id}>
+                    <div className="text-red-400">{user.name}</div>
+                    <div>{user.email}</div>
+                </div>
+            ))}
+        </div>
     </div>
     </>
 }
