@@ -6,25 +6,40 @@ const handler = NextAuth({
     CredentialsProvider({
       name: "Credentials",
       credentials: {
-        userName: { label: "Username", type: "text" },
+        userName: { label: "UserName", type: "text" },
         password: { label: "Password", type: "password" },
       },
       async authorize(credentials) {
+        console.log("Credentials:", credentials);
         // Call your C# backend API for authentication
         const res = await fetch(
-          "https://localhost:7167/api/user/authenticate",
+          "https://localhost:7167/api/User/authenticate",
           {
             method: "POST",
-            body: JSON.stringify(credentials),
-            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              userName: credentials.userName,
+              password: credentials.password,
+            }),
+            headers: {
+              "Content-Type": "application/json",
+            },
+            credentials: "include",
           }
         );
 
+        console.log("Response Status:", res.status);
+
         const user = await res.json();
+
+        console.log("User Data;", user);
 
         // If no error and we have user data, return it
         if (res.ok && user) {
-          return user;
+          console.log("User authentication successful:", user);
+          return {
+            id: user.id,
+            token: user.token,
+          };
         }
         // Return null if user data could not be retrieved
         return null;
@@ -34,21 +49,20 @@ const handler = NextAuth({
   session: {
     strategy: "jwt",
   },
-  jwt: {
-    secret: process.env.JWT_SECRET, // Use a strong secret key
-    //signingKey: process.env.JWT_SIGNING_PRIVATE_KEY, // Optional: Use a private key to sign the JWT
-  },
+  csrf: true,
   callbacks: {
     async jwt({ token, user }) {
+      console.log("JWT Callback - user", user); // Log the user object
       // Initial sign in
       if (user) {
-        token.id = user.id;
+        token.userId = user.id;
         token.accessToken = user.token; // Assuming your C# backend returns a token
       }
+      console.log("JWT Callback - Token", token); // Log the token
       return token;
     },
     async session({ session, token }) {
-      session.user.id = token.id;
+      session.user.id = token.userId;
       session.accessToken = token.accessToken; // Attach the token to the session object
       return session;
     },
@@ -58,8 +72,5 @@ const handler = NextAuth({
     error: "/auth/error", // Error page
   },
 });
-
-console.log("JWT_SECRET:", process.env.JWT_SECRET);
-console.log("NEXTAUTH_URL:", process.env.NEXTAUTH_URL);
 
 export { handler as GET, handler as POST };

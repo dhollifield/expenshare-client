@@ -32,11 +32,11 @@ return <>
                 <p>--{format(new Date(event.eventDate), 'MMMM dd, yyyy')}--</p>
                 <ul className="list-none shadow rounded-lg p-3">
                     <h6 className="font-bold">Participants:</h6>
-                {event.users.map((user) => (
-                    <li key={user.id} id={user.id}>
-                        <p>{user.name}</p>
-                    </li>
-                ))}
+                        {event.users.map((user) => (
+                            <li key={user.id} id={user.id}>
+                                <p>{user.name}</p>
+                            </li>
+                        ))}
                 </ul>
             </li>
         ))}
