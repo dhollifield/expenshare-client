@@ -22,7 +22,7 @@ useEffect(() => {
 }, []);
 
 return <>
-    <p className="text-blue-600">Events List</p>
+    <h2 class="flex justify-center text-2xl font-bold leading-7 text-gray-900 sm:truncate sm:text-3xl sm:tracking-tight">Events List</h2>
     <div>
     <ul className="flex justify-center">
         {events.map((event) => (
