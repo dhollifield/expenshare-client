@@ -21,7 +21,7 @@ useEffect(() => {
 }, []);
 
 return <>
-    <p className="text-blue-600">Users List</p>
+    <h2 class="flex justify-center text-2xl font-bold leading-7 text-gray-900 sm:truncate sm:text-3xl sm:tracking-tight">Users List</h2>
     <div>
         <div className="flex center">
             {users.map((user) => (

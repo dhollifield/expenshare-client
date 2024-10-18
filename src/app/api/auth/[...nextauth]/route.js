@@ -17,8 +17,8 @@ const handler = NextAuth({
           {
             method: "POST",
             body: JSON.stringify({
-              userName: credentials.userName,
-              password: credentials.password,
+              UserName: credentials.userName,
+              Password: credentials.password,
             }),
             headers: {
               "Content-Type": "application/json",
@@ -39,6 +39,8 @@ const handler = NextAuth({
           return {
             id: user.id,
             token: user.token,
+            fullName: user.fullName,
+            email: user.email,
           };
         }
         // Return null if user data could not be retrieved
@@ -57,6 +59,8 @@ const handler = NextAuth({
       if (user) {
         token.userId = user.id;
         token.accessToken = user.token; // Assuming your C# backend returns a token
+        token.name = user.fullName;
+        token.email = user.email;
       }
       console.log("JWT Callback - Token", token); // Log the token
       return token;
@@ -64,6 +68,8 @@ const handler = NextAuth({
     async session({ session, token }) {
       session.user.id = token.userId;
       session.accessToken = token.accessToken; // Attach the token to the session object
+      session.user.name = token.name;
+      session.user.email = token.email;
       return session;
     },
   },
